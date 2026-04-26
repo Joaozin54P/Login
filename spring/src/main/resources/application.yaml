@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: login
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/login
+      auto-index-creation: true
+
+jwt:
+  secret: Z3VhcmRhbmRvU2VndXJhbmNhQ29tU3ByaW5nQm9vdDIwMjYhQDEyMw
+  expiration: 3600000

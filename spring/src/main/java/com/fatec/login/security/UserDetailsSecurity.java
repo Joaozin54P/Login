@@ -1,23 +1,27 @@
 package com.fatec.login.security;
 
-import com.fatec.login.model.login;
-import com.fatec.login.repository.loginRepository;
-import org.springframework.security.core.userdetails.*;
-import org.springframework.stereotype.Service;
+import com.fatec.login.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class UserDetailsSecurity implements UserDetailsService {
 
-    private final loginRepository repository;
+    private final UserRepository repository;
 
-    public UserDetailsSecurity(loginRepository repository) {
+    public UserDetailsSecurity(UserRepository repository) {
         this.repository = repository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        login user = repository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+        var user = repository.findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("Usuário não encontrado");
+        }
 
         return new AuthUserDetails(user);
     }

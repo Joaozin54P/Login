@@ -1,22 +1,25 @@
 package com.fatec.login.security;
 
-import com.fatec.login.model.login;
+import com.fatec.login.model.user;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collections;
+import java.util.Collection;
 
 public class AuthUserDetails implements UserDetails {
 
-    private final login user;
+    private final user user;
 
-    public AuthUserDetails(login user) {
+    public AuthUserDetails(user user) {
         this.user = user;
     }
 
     @Override
-    public String getUsername() {
-        return user.username();
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
+        return user.roles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .toList();
     }
 
     @Override
@@ -25,14 +28,27 @@ public class AuthUserDetails implements UserDetails {
     }
 
     @Override
-    public java.util.Collection<SimpleGrantedAuthority> getAuthorities() {
-        return Collections.singletonList(
-                new SimpleGrantedAuthority(user.role())
-        );
+    public String getUsername() {
+        return user.username();
     }
 
-    @Override public boolean isAccountNonExpired() { return true; }
-    @Override public boolean isAccountNonLocked() { return true; }
-    @Override public boolean isCredentialsNonExpired() { return true; }
-    @Override public boolean isEnabled() { return true; }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
