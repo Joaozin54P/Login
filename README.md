@@ -32,15 +32,20 @@ Desenvolver uma API de autenticação aplicando conceitos de:
 ## 📁 Estrutura do Projeto
 
 ```bash
-src/main/java/com/fatec/login
+Login
+├── domain
+│   └── src/main/java/com/fatec/login
+│       └── model          # Entidades do sistema (Login)
 │
-├── controller     # Recebe as requisições HTTP
-├── service        # Regras de negócio
-├── repository     # Comunicação com o banco
-├── model          # Estrutura do Login
-├── dto            # Request e Response
-├── security       # JWT e autenticação
-└── LoginApplication.java
+└── spring
+    └── src/main/java/com/fatec/login
+        ├── config         # Configurações do Spring Security
+        ├── controller     # Recebe as requisições HTTP
+        ├── dto            # Objetos de entrada e saída (Request/Response)
+        ├── repository     # Comunicação com o banco de dados (MongoDB)
+        ├── security       # JWT, filtros e autenticação
+        ├── service        # Regras de negócio
+        └── LoginApplication.java  # Classe principal
 ````
 
 ---
