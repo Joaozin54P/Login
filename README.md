@@ -141,7 +141,6 @@ eyJhbGciOiJIUzI1NiJ9...
 
   * username
   * role
-  * clienteId
 * O token possui tempo de expiração
 * O sistema segue padrão REST
 * Cada usuário pode estar associado a um cliente através do `clienteId`
